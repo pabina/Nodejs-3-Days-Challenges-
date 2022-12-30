@@ -21,6 +21,7 @@ let yargs=require("yargs");
 yargs.command({
     command:"add",
     describe:'new file added',
+    
     handler:function(){
         console.log("one file is added")
     }
@@ -71,10 +72,4 @@ console.log(yargs.argv)
 
 
 
-// yargs.command({
-//     command:"list",
-//     description:"hello this is list one",
-//     handler:function(){
-//         console.log("this is list function")
-//     }
-// })
+

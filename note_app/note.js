@@ -76,6 +76,15 @@ if(mynotes.length>FilterNotes.length){
 
 
 
+//for listing notes
+
+const listNotes=()=>{
+const notes=loadNotes();
+console.log(chalk.inverse("yours notes"))
+notes.forEach(element => {
+  console.log(element.title)
+});
+}
 
 
 
@@ -84,5 +93,7 @@ if(mynotes.length>FilterNotes.length){
 module.exports = {
   getNotes: getNotes,
   addNotes: addNotes,
-  removeNotes:removeNotes
+  removeNotes:removeNotes,
+  listNotes:listNotes
+
 };

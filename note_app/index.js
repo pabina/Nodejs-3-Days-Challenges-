@@ -42,4 +42,14 @@ yargs.command({
 })
 
 
+//list command
+yargs.command({
+    command:"list",
+    describe:"this is list command",
+    handler(){
+        notes.listNotes();
+    }
+})
+
+
 yargs.parse();

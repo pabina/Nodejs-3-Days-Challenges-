@@ -1,4 +1,6 @@
 let fs = require("fs");
+let chalk =require("chalk");
+
 
 const getNotes = () => {
   console.log("hello people");
@@ -28,7 +30,6 @@ const addNotes = (title, body) => {
 
 
 //for saving a notes
-
 const saveNotes = (notes) => {
   const DataJSON = JSON.stringify(notes);
   fs.writeFileSync("note.json", DataJSON);
@@ -52,29 +53,27 @@ const loadNotes = () => {
 
 //for remove notes
 const removeNotes=(title)=>{
-let mynotes=reviewNotes();
-let mynewnotes=[]
+let mynotes=loadNotes();
 
-const RemoveTitle=mynotes.filter((data)=>{
-    if(data.title !== title ){
-        mynewnotes.push(data)
-    }
+const FilterNotes=mynotes.filter((data)=>{
+    return data.title !== title      
 })
 
-let newnotesString=JSON.stringify(mynewnotes);
+if(mynotes.length>FilterNotes.length){
+    console.log(chalk.green.inverse("Note Removed"))
+}else{
+    console.log(chalk.red.inverse("No Note Found"))
+}
 
-fs.writeFileSync("note.json",newnotesString)
 
-
+saveNotes(FilterNotes)
+// let newnotesString=JSON.stringify(mynewnotes);
+// fs.writeFileSync("note.json",newnotesString)
 }
 
 
 
-const reviewNotes=()=>{
- const BufferData=fs.readFileSync("note.json");
-   const noteJson=BufferData.toString();
-   return JSON.parse(noteJson)
-}
+
 
 
 

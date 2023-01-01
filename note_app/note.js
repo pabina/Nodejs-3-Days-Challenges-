@@ -10,11 +10,23 @@ const getNotes=()=>{
 const addNotes=(title,body)=>{
 const notes=loadNotes();
 
+const dublicateNotes=notes.filter((noteis)=>{
+ return noteis.title === title
+})
+
+if(dublicateNotes.length==0){
 notes.push({
     title:title,
     body:body
 })
 saveNotes(notes);
+console.log("added successfully");
+}
+else{
+    console.log("duplication found")
+}
+
+
 }
 
 
@@ -45,4 +57,7 @@ const loadNotes=()=>{
 
 
 
-module.exports={getNotes,addNotes}
+module.exports={
+    getNotes:getNotes,
+    addNotes:addNotes
+}

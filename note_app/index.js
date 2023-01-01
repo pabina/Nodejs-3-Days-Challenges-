@@ -1,3 +1,4 @@
+const { demandOption } = require('yargs');
 let yargs=require('yargs');
 const note = require('./note');
 let notes=require('./note');
@@ -50,6 +51,24 @@ yargs.command({
         notes.listNotes();
     }
 })
+
+
+//read command
+yargs.command({
+    command:"read",
+    describe:"this is read command by title",
+    builder:{
+title:{
+    describe:"title is required",
+    demandOption:true,
+    type:"string"
+}
+    },
+    handler(argv){
+        notes.readNotes(argv.title);
+    }
+})
+
 
 
 yargs.parse();

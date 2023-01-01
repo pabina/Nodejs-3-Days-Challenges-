@@ -87,6 +87,19 @@ notes.forEach(element => {
 }
 
 
+//reading notes by title
+const readNotes=(title)=>{
+  let notes=loadNotes();
+
+ let note=notes.find((data)=>data.title===title)
+ if(note){
+  console.log(chalk.green.inverse.bold(note.title));
+  console.log(note.body)
+ }else{
+  console.log(chalk.red.inverse("no title found"))
+ }
+
+}
 
 
 
@@ -94,6 +107,7 @@ module.exports = {
   getNotes: getNotes,
   addNotes: addNotes,
   removeNotes:removeNotes,
-  listNotes:listNotes
-
+  listNotes:listNotes,
+  readNotes:readNotes
+  
 };

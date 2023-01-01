@@ -18,10 +18,8 @@ const task={
     }
 ],
  getTaskToDo:function(){
-    const myIncompletetask=this.task.filter((data)=>{
-      return data.complete == false
-    })
-    return myIncompletetask;
+   return  myIncompletetask=this.task.filter(data=>data.complete == false)
+    // return myIncompletetask;
  }
 }
 

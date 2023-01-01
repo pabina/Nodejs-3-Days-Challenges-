@@ -1,10 +1,4 @@
 [
   { "title": "titletwo", "body": "description two" },
-  { "title": "titletwo", "body": "description two" },
-  { "title": "titlethree", "body": "description two" },
-  { "title": "titlethree", "body": "description two" },
-  { "title": "titlethree", "body": "description two" },
-  { "title": "titlethree", "body": "description two" },
-  { "title": "titlethree", "body": "description two" },
-  { "title": "titlefour", "body": "description four" }
+  { "title": "titletwo", "body": "description two" }
 ]

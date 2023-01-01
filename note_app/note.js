@@ -20,9 +20,9 @@ const addNotes = (title, body) => {
       body: body,
     });
     saveNotes(notes);
-    console.log("added successfully");
+    console.log(chalk.green.inverse("added successfully"));
   } else {
-    console.log("duplication found");
+    console.log(chalk.red.inverse("duplication found"));
   }
 };
 
@@ -61,12 +61,13 @@ const FilterNotes=mynotes.filter((data)=>{
 
 if(mynotes.length>FilterNotes.length){
     console.log(chalk.green.inverse("Note Removed"))
+    saveNotes(FilterNotes)
 }else{
     console.log(chalk.red.inverse("No Note Found"))
 }
 
 
-saveNotes(FilterNotes)
+
 // let newnotesString=JSON.stringify(mynewnotes);
 // fs.writeFileSync("note.json",newnotesString)
 }

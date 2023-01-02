@@ -1,12 +1,9 @@
+const request=require("request");
 
-console.log("starting");
+const url="https://api.weatherapi.com/v1/current.json?key=13e99e5cd4424c5b8c374814230201&q=nepal"
 
-setTimeout(()=>{
-    console.log("run after 2 second");
-},2000)
 
-setTimeout(()=>{
-    console.log("run after 0 second");
-},0)
-
-console.log("stopping");
+request({url:url},(error,response)=>{
+    const data=JSON.parse(response.body);
+    console.log(data.location)
+})

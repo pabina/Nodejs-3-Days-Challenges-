@@ -7,22 +7,36 @@ const url="https://api.weatherapi.com/v1/current.json?key=13e99e5cd4424c5b8c3748
 
 
 //challenge two
-request({url:url,json:true},(error,response)=>{
-    if(error){
-console.log("unable to connection to location services")
-     }
-     else if(response.body.current===""){
- console.log("Unalble to find location try another search")
-     }
-    else{
-        const data=response.body.current;
-        console.log(`It is currently ${data.temp_c} degrees out.And feels like ${data.feelslike_c} degrees `)
-    }
+// request({url:url,json:true},(error,response)=>{
+//     if(error){
+// console.log("unable to connection to location services")
+//      }
+//      else if(response.body.current===""){
+//  console.log("Unalble to find location try another search")
+//      }
+//     else{
+//         const data=response.body.current;
+//         console.log(`It is currently ${data.temp_c} degrees out.And feels like ${data.feelslike_c} degrees `)
+//     }
     
+// })
+
+
+//challenge two of callback function
+
+
+const Add=(x,y,callback)=>{
+    
+    setTimeout(()=>{
+    let sum=x+y;
+    callback(sum);
+    },2000)
+   
+}
+
+Add(3,4,(result)=>{
+console.log(result);
 })
-
-
-//challenge two geo
 
 
 

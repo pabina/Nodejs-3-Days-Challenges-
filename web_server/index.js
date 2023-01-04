@@ -51,6 +51,21 @@ app.get("/weather",(req,res)=>{
     })
 })
 
+app.get("/help/*",(req,res)=>{
+    res.render("error",{
+        title:404,
+        message:"404 error.Help article not found.",
+        footer:" Help page not found"
+    })
+})
+
+app.get("*", (req,res)=>{
+    res.render("error",{
+        title:404,
+        message:"404 page not found" ,
+        footer:"page not found"
+    })
+})
 
 
 app.listen(4000,()=>{

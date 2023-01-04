@@ -1,5 +1,6 @@
 const path=require("path")
 const express=require("express");
+const hbs=require("hbs");
 
 const app=express();
 // console.log(__dirname)
@@ -9,10 +10,17 @@ const app=express();
 
 const pathName=path.join(__filename,"../public");
 // const AboutPath=path.join(__filename,"..public")
+const viewsPath=path.join(__filename,"../templates/views")
+const partialPath=path.join(__filename,"../templates/partials")
 
 app.use(express.static(pathName))
 
+
+
 app.set('view engine', 'hbs');
+app.set("views",viewsPath);
+hbs.registerPartials(partialPath);
+
 
 
 
@@ -30,6 +38,7 @@ app.get("/weather",(req,res)=>{
         latitute:400
     })
 })
+
 
 
 app.listen(4000,()=>{

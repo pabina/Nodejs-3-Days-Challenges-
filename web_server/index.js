@@ -26,14 +26,23 @@ hbs.registerPartials(partialPath);
 
 app.get("",(req,res)=>{
     res.render("index",{
+        title:"About me",
         name:"pabina Rimal",
         education:"Bachelor"
+    })
+})
+
+app.get("/help",(req,res)=>{
+    res.render("help",{
+        title:"Help me",
+        work:"this is help page"
     })
 })
 
 
 app.get("/weather",(req,res)=>{
     res.render("weather",{
+        title:"this is weather page",
         logitute:300,
         latitute:400
     })

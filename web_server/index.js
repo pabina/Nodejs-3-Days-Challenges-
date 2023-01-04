@@ -28,14 +28,16 @@ app.get("",(req,res)=>{
     res.render("index",{
         title:"About me",
         name:"pabina Rimal",
-        education:"Bachelor"
+        education:"Bachelor",
+        footer:"home footer"
     })
 })
 
 app.get("/help",(req,res)=>{
     res.render("help",{
         title:"Help me",
-        work:"this is help page"
+        work:"this is help page",
+        footer:"help footer"
     })
 })
 
@@ -44,7 +46,8 @@ app.get("/weather",(req,res)=>{
     res.render("weather",{
         title:"this is weather page",
         logitute:300,
-        latitute:400
+        latitute:400,
+        footer:"Weather footer"
     })
 })
 

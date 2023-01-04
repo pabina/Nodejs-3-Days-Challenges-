@@ -12,16 +12,23 @@ const pathName=path.join(__filename,"../public");
 
 app.use(express.static(pathName))
 
-app.get("/home",(req,res)=>{
-    res.send("<h1>you are inside home page</h1>")
+app.set('view engine', 'hbs');
+
+
+
+app.get("",(req,res)=>{
+    res.render("index",{
+        name:"pabina Rimal",
+        education:"Bachelor"
+    })
 })
 
 
 app.get("/weather",(req,res)=>{
-    res.send([{
+    res.render("weather",{
         logitute:300,
         latitute:400
-    }])
+    })
 })
 
 

@@ -1,17 +1,28 @@
-{{!-- <!DOCTYPE html>
-<html lang="en">
+
+<!DOCTYPE html>
+
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css" />
-    <title>Document</title>
+    <title>Weather</title>
+    <link rel="icon" href="/img/weather.png">
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
+
 <body>
-    {{>header}}
-    <h1> longitute:{{logitute}}</h1>
-   
-    <p>latitute:{{latitute}}</p>
+    <div class="main-content">
+     <p>Use this site to get your weather!</p>
+       {{>header}}
+     
+
+      
+        <h1>feelslike:{{feelslike}}</h1>
+        <h1>currenttemp:{{currenttemp}}</h1>
+        {{!-- <h1>your Address:{{address}}</h1> --}}
+
+    </div>
+
     {{>footer}}
 </body>
-</html> --}}
+
+</html>

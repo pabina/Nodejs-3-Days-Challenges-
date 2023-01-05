@@ -1,6 +1,7 @@
 const path=require("path")
 const express=require("express");
 const hbs=require("hbs");
+const ForeCaste=require("./templates/utils")
 
 const app=express();
 // console.log(__dirname)
@@ -33,6 +34,7 @@ app.get("",(req,res)=>{
     })
 })
 
+
 app.get("/help",(req,res)=>{
     res.render("help",{
         title:"Help me",
@@ -42,8 +44,10 @@ app.get("/help",(req,res)=>{
 })
 
 
+
 // app.get("/weather",(req,res)=>{
 //     res.render("weather",{
+      
 //         title:"this is weather page",
 //         logitute:300,
 //         latitute:400,
@@ -53,23 +57,50 @@ app.get("/help",(req,res)=>{
 
 
 
-//challenge for query string
-app.get("/weather",(req,res)=>{
-    if(!req.query.address){
-        return res.send({
-           message:"you must have provide the address" 
-        })
-    }
 
-    console.log(req.query);
-    let address=req.query.address;
-    res.send({
-        title:"this is weather page",
-        logitute:300,
-        latitute:400,
-        address:address,
-        footer:"Weather footer"
-    })
+
+//challenge for query string
+// app.get("/weather",(req,res)=>{
+//     if(!req.query.address){
+//         return res.render("weather",{
+//            title:"you must have provide the address" 
+//         })
+//     }
+//     else{
+//         console.log(req.query);
+//     let address=req.query.address;
+//      res.render("weather",{
+       
+//         title:"this is weather page",
+//         logitute:300,
+//         latitute:400,
+//         address:address,
+//         footer:"Weather footer"
+//     })
+
+//     }
+
+    
+// })
+
+
+//challenge for json http
+app.get("/weather",(req,res)=>{
+if(!req.query.address){
+    return res.send("you most provide address")
+}
+ForeCaste(req.query.address,(error,{data,myaddress})=>{
+    if(error){
+      return  res.send(error)
+    }else{
+res.send({
+    temperature:data.temperature,
+    feelslike:data.feelslike,
+    address:myaddress
+})
+    }
+})
+
 })
 
 

@@ -42,14 +42,50 @@ app.get("/help",(req,res)=>{
 })
 
 
+// app.get("/weather",(req,res)=>{
+//     res.render("weather",{
+//         title:"this is weather page",
+//         logitute:300,
+//         latitute:400,
+//         footer:"Weather footer"
+//     })
+// })
+
+
+
+//challenge for query string
 app.get("/weather",(req,res)=>{
-    res.render("weather",{
+    if(!req.query.address){
+        return res.send({
+           message:"you must have provide the address" 
+        })
+    }
+
+    console.log(req.query);
+    let address=req.query.address;
+    res.send({
         title:"this is weather page",
         logitute:300,
         latitute:400,
+        address:address,
         footer:"Weather footer"
     })
 })
+
+
+
+//for query string practice
+app.get("/product",(req,res)=>{
+    if(!req.query.search){
+     return  res.send("you most provide search")
+    }
+
+    console.log(req.query);
+    res.send({
+        product:[]
+    })
+})
+
 
 app.get("/help/*",(req,res)=>{
     res.render("error",{
@@ -66,6 +102,8 @@ app.get("*", (req,res)=>{
         footer:"page not found"
     })
 })
+
+
 
 
 app.listen(4000,()=>{

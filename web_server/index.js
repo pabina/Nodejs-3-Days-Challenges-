@@ -89,11 +89,11 @@ app.get("/weather",(req,res)=>{
 if(!req.query.address){
     return res.send("you most provide address")
 }
-ForeCaste(req.query.address,(error,{data,myaddress})=>{
+ForeCaste(req.query.address,(error,{data,myaddress}={})=>{
     if(error){
       return  res.send(error)
     }else{
-res.send({
+ return res.send({
     temperature:data.temperature,
     feelslike:data.feelslike,
     address:myaddress

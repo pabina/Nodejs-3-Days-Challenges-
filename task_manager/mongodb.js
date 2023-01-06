@@ -83,15 +83,24 @@ MongoClient.connect(connectUrl, { useNewUrlParser: true }, (error, client) => {
   // })
 
   // for challenge
-  db.collection("task")
-    .updateMany({ completed: false }, { $set: { completed: true } })
-    .then((result) => {console.log(result.result.nModified)}).catch((error)=>{
-        console.log(error)
-    });
+//   db.collection("task")
+//     .updateMany({ completed: false }, { $set: { completed: true } })
+//     .then((result) => {console.log(result.result.nModified)}).catch((error)=>{
+//         console.log(error)
+//     });
 
+//long process
   // promiseUpdate.then((result)=>{
   // console.log(result.result.nModified)
   // }).catch((error)=>{
   // console.log(error)
   // })
+
+
+//for deleteOne
+db.collection("task").deleteOne({description:"this is task two"}).then((result)=>{
+ console.log(result)
+}).catch((error)=>{
+console.log(error)
+})
 });

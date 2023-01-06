@@ -1,4 +1,5 @@
 const mongoose=require("mongoose");
+const validator=require("validator");
 
 const connectUrl="mongodb://localhost:27017/task_managerApp"
 mongoose.set('strictQuery', false)
@@ -10,17 +11,23 @@ console.log(error)
 
 const TASk=mongoose.model("Task",{
    
- description:{
-  type:String
+    description:{ 
+    required:true,
+     type:String,
+     lowercase:true,
+     trim:true,
     },
+   
     completed:{
-     type:Boolean
+     type:Boolean,
+     default:false,
     }
 })
 
 const taskcollection=new TASk({
-    description:"this is task one",
-    completed:true
+    description:"this is description",
+    // completed:true,
+  
 })
 
 taskcollection.save().then(()=>{

@@ -8,23 +8,23 @@ mongoose.connect(connectUrl,{useNewUrlParser:true}).then((result)=>{
 console.log(error)
 });
 
-// const TASk=mongoose.model("Task",{
+const TASk=mongoose.model("Task",{
    
-//  description:{
-//   type:String
-//     },
-//     completed:{
-//      type:Boolean
-//     }
-// })
+ description:{
+  type:String
+    },
+    completed:{
+     type:Boolean
+    }
+})
 
-// const taskcollection=new TASk({
-//     description:"this is task one",
-//     completed:true
-// })
+const taskcollection=new TASk({
+    description:"this is task one",
+    completed:true
+})
 
-// taskcollection.save().then(()=>{
-// console.log(taskcollection)
-// }).catch((error)=>{
-// console.log(error)
-// })
+taskcollection.save().then(()=>{
+console.log(taskcollection)
+}).catch((error)=>{
+console.log(error)
+})

@@ -1,13 +1,14 @@
 
 const {MongoClient,ObjectID}=require("mongodb")
 
-let id=new ObjectID;
-console.log(id)
-console.log(id.generate())
-console.log(id.generate().length)
-console.log(id.getTimestamp());
-console.log(id.toHexString())
-console.log(id.toHexString().length)
+//practice for the object id
+// let id=new ObjectID;
+// console.log(id)
+// console.log(id.generate())
+// console.log(id.generate().length)
+// console.log(id.getTimestamp());
+// console.log(id.toHexString())
+// console.log(id.toHexString().length)
 
 
 
@@ -22,16 +23,18 @@ MongoClient.connect(connectUrl,{useNewUrlParser:true},(error,client)=>{
     console.log("Successfully Connect to Database");
 
     const db=client.db(databaseName);
-    db.collection("user").insertOne({
-        _id:id,
-        name:"pabina",
-        age:24
-    },(error,result)=>{
-        if(error){
-            return console.log("unable to connect")
-        }
-        console.log(result.ops)
-    })
+
+    //insert challenges
+    // db.collection("user").insertOne({
+    //     _id:id,
+    //     name:"pabina",
+    //     age:24
+    // },(error,result)=>{
+    //     if(error){
+    //         return console.log("unable to connect")
+    //     }
+    //     console.log(result.ops)
+    // })
 
     // db.collection("user").insertMany([{
     //     name:"chandrakala",
@@ -47,7 +50,7 @@ MongoClient.connect(connectUrl,{useNewUrlParser:true},(error,client)=>{
     //     })
 
 
-    //challenge one for mongodb
+    //challenge one for mongodb insert
     // db.collection("task").insertMany([
     //     {name:"task1",description:"this is task one",completed:true},
     //     {name:"task2",description:"this is task two",completed:false},
@@ -61,6 +64,21 @@ MongoClient.connect(connectUrl,{useNewUrlParser:true},(error,client)=>{
     // })
 
 
-    //practice for the object id
+    // 3.challenge for mongodb find
+    db.collection("task").findOne({_id:new ObjectID("63b7dc464fad0f11e8af90c6")},(error,lasttask)=>{
+        if(error){
+          return  console.log("unable to find")
+        }
+        console.log(lasttask)
+    })
+    //question 2
+  db.collection("task").find({completed:true}).toArray((error,completedtask)=>{
+    if(error){
+        return console.log("unable to find")
+    }
+    console.log(completedtask)
+  })
+
+    
 
 })

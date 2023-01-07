@@ -7,6 +7,9 @@
 const add=async(a,b)=>{
   return new Promise((resolve,reject)=>{
     setTimeout(() => {
+        if(a<0 || b<0){
+            return reject("number should not be less than 0")
+        }
        resolve(a+b) 
     }, 200);
   })
@@ -16,7 +19,7 @@ const add=async(a,b)=>{
 const asyncfun=async()=>{
 const sumfirst =await add(2,3);
 const sumsencond = await add(sumfirst,8);
-const sumthird=await  add(sumsencond,10);
+const sumthird=await  add(sumsencond,-10);
 return sumthird;
 }
 

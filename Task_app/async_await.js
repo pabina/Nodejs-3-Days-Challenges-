@@ -18,8 +18,8 @@ const add=async(a,b)=>{
 
 const asyncfun=async()=>{
 const sumfirst =await add(2,3);
-const sumsencond = await add(sumfirst,8);
-const sumthird=await  add(sumsencond,-10);
+const sumsencond = await add(sumfirst,-8);
+const sumthird=await  add(sumsencond,10);
 return sumthird;
 }
 

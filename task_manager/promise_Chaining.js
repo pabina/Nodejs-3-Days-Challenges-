@@ -63,15 +63,28 @@ require("./src/db.js");
 
 //promise chaining practice for User
 
-User.findOneAndUpdate("63b996e838fa03baa80bad80",{age:6}).then((result1)=>{
-console.log(result1)
- return User.countDocuments({age:6})
-}).then((result2)=>{
-console.log(result2)
-}).catch(()=>{
-console.log(error)
+// User.findOneAndUpdate("63b996e838fa03baa80bad80",{age:6}).then((result1)=>{
+// console.log(result1)
+//  return User.countDocuments({age:6})
+// }).then((result2)=>{
+// console.log(result2)
+// }).catch(()=>{
+// console.log(error)
 
+// })
+
+//modifying promise chaining to async await
+
+const UserDocument=async(myage)=>{
+  let updateAge = await User.findByIdAndUpdate("63b996e838fa03baa80bad80",{age:myage});
+  let sameAgeCount=await User.countDocuments({age:myage})
+  return sameAgeCount;
+}
+
+UserDocument(55).then((result)=>{
+console.log(result)
+}).catch((e)=>{
+console.log(e)
 })
-
 
 

@@ -10,3 +10,5 @@ console.log(result2)
 }).catch((error)=>{
     console.log(error)
 })
+
+//modifying promise chaining to async await

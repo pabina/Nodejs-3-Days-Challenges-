@@ -3,8 +3,8 @@ const mongoose=require("mongoose")
 
 const TASKMODEL=mongoose.model("Task",{
     taskname:{
-type:String,
-required:true
+  type:String,
+    required:true
     },
     description:{
         type:String,

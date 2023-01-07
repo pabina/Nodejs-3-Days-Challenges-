@@ -17,13 +17,20 @@ app.get("/user",(req,res)=>{
 
 
 //for post
-app.post("/user",(req,res)=>{
+app.post("/user",async(req,res)=>{
 const Users=new UserModel(req.body);
-Users.save().then(()=>{
-res.send(Users)
-}).catch((error)=>{
-res.send(error)
-})
+try {
+  await Users.save()  
+  res.send(Users);
+} catch (error) {
+   res.status(400).send(error) 
+}
+
+// Users.save().then(()=>{
+// res.send(Users)
+// }).catch((error)=>{
+// res.send(error)
+// })
 })
 
 

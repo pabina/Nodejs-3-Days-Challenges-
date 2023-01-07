@@ -11,40 +11,65 @@ app.use(express.json())
 
 
 //for create
-app.post("/mytask",(req,res)=>{
+app.post("/mytask",async(req,res)=>{
     const MytaskData=new TASKMODEL(req.body)
-    MytaskData.save().then(()=>{
-    console.log(MytaskData)
-    res.status(201).send(MytaskData)
-    }).catch((error)=>{
-   res.status(400).send(error)
-    })
-//    res.send(req.body)
+
+try {
+  await MytaskData.save();
+  res.status(201).send(MytaskData)
+} catch (error) {
+    res.status(400).send(error)  
+}
+    
+//     MytaskData.save().then(()=>{
+//     console.log(MytaskData)
+//     res.status(201).send(MytaskData)
+//     }).catch((error)=>{
+//    res.status(400).send(error)
+//     })
 })
 
 
 //for reading
-app.get("/mytask",(req,res)=>{
-     TASKMODEL.find({}).then((result)=>{
-res.status(200).send(result);
-    }).catch((error)=>{
-        res.status(500).send(error)
-    })
+app.get("/mytask",async(req,res)=>{
+    try {
+     let alltask= await TASKMODEL.find({});
+        res.status(200).send(alltask);
+    } catch (error) {
+        res.status(500).send(error) 
+    }
+//      TASKMODEL.find({}).then((result)=>{
+// res.status(200).send(result);
+//     }).catch((error)=>{
+//         res.status(500).send(error)
+//     })
     
 })
 
+
+
 //for reading single item
-app.get("/mytask/:id",(req,res)=>{
+app.get("/mytask/:id",async(req,res)=>{
     const _id=req.params.id;
 
-   TASKMODEL.findById(_id).then((result)=>{
-    if(!result){
-       return res.status(404).send()
+    try {
+    let taskis=  await TASKMODEL.findById(_id) 
+    if(!taskis){
+        return res.status(404).send("not found any task") 
     }
-    res.status(200).send(result)
-   }).catch((error)=>{
-    res.status(500).send(error)
-   })
+    res.status(200).send(taskis)  
+    } catch (error) {
+        res.status(500).send(error)   
+    }
+
+//    TASKMODEL.findById(_id).then((result)=>{
+//     if(!result){
+//        return res.status(404).send()
+//     }
+//     res.status(200).send(result)
+//    }).catch((error)=>{
+//     res.status(500).send(error)
+//    })
 })
 
 

@@ -25,7 +25,7 @@ app.post("/mytask",(req,res)=>{
 
 //for reading
 app.get("/mytask",(req,res)=>{
-     TASKMODEL.find().then((result)=>{
+     TASKMODEL.find({}).then((result)=>{
 res.status(200).send(result);
     }).catch((error)=>{
         res.status(500).send(error)
@@ -36,7 +36,7 @@ res.status(200).send(result);
 //for reading single item
 app.get("/mytask/:id",(req,res)=>{
     const _id=req.params.id;
-    
+
    TASKMODEL.findById(_id).then((result)=>{
     if(!result){
        return res.status(404).send()

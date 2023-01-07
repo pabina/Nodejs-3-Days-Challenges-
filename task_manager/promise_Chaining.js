@@ -63,7 +63,6 @@ require("./src/db.js");
 
 //promise chaining practice for User
 
-
 User.findOneAndUpdate("63b996e838fa03baa80bad80",{age:6}).then((result1)=>{
 console.log(result1)
  return User.countDocuments({age:6})
@@ -73,3 +72,6 @@ console.log(result2)
 console.log(error)
 
 })
+
+
+

@@ -53,6 +53,15 @@ try {
 
 //updating individual user my id
 app.patch("/user/:id",async(req,res)=>{
+  let updates=Object.keys(req.body);
+  let validateUpdates=["name","email","age"];
+  let vaidationupdate=updates.every((update)=> validateUpdates.includes(update) )
+  console.log(vaidationupdate)
+  console.log(updates);
+  
+  if(!vaidationupdate){
+    return res.send(404).send("invalid key value pair")
+  }
   try {
     let user= await UserModel.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true})
     if(!user){

@@ -1,4 +1,5 @@
 const express=require("express");
+const { getMaxListeners } = require("./models/mytask.js");
 const UserModel=require("./models/mytask.js");
 require("./db.js");
 
@@ -50,6 +51,18 @@ try {
 
 
 
+//updating individual user my id
+app.patch("/user/:id",async(req,res)=>{
+  try {
+    let user= await UserModel.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true})
+    if(!user){
+      return res.status(404).send("not found any user")
+    }
+    res.send(user)
+  } catch (error) {
+    res.send(error)
+  }
+})
 
 
 

@@ -73,6 +73,26 @@ app.get("/mytask/:id",async(req,res)=>{
 })
 
 
+//for update
+app.patch("/mytask/:id",async(req,res)=>{
+    let updates=Object.keys(req.body);
+    let validateskeys=["taskname","description","completed"];
+    let updatevalidation=updates.every((updatedata)=>validateskeys.includes(updatedata))
+    if(!updatevalidation){
+        return res.status(404).send("not matching key")
+    }
+    try {
+        let updatetask=await TASKMODEL.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true});
+      if(!updatetask){
+        res.status(404).send("not found any task")
+      }
+      res.send(updatetask)
+      
+    } catch (error) {
+      res.send(error) 
+    }
+})
+
 
 
 

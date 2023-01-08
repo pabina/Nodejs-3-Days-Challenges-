@@ -11,9 +11,13 @@ app.use(express.json());
 
 
 // for get
-
-app.get("/user",(req,res)=>{
-    res.send("this is user");
+app.get("/user",async(req,res)=>{
+  try {
+     let alluser=await UserModel.find({});
+     res.send(alluser)
+  } catch (error) {
+    res.send(error)
+  }   
 })
 
 
@@ -26,12 +30,6 @@ try {
 } catch (error) {
    res.status(400).send(error) 
 }
-
-// Users.save().then(()=>{
-// res.send(Users)
-// }).catch((error)=>{
-// res.send(error)
-// })
 })
 
 
@@ -73,6 +71,20 @@ app.patch("/user/:id",async(req,res)=>{
   }
 })
 
+
+//for deleting user
+app.delete("/user/:id",async(req,res)=>{
+  try {
+    let deleteUser=await UserModel.findById(req.params.id);
+    if(!deleteUser){
+      return res.status(404).send("dont found any user")
+    }
+    res.send(deleteUser)
+    
+  } catch (error) {
+    res.send(error)
+  }
+})
 
 
 

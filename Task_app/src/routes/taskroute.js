@@ -37,7 +37,7 @@ router.get("/mytask/:id",async(req,res)=>{
     const _id=req.params.id;
 
     try {
-    let taskis=  await TASKMODEL.findById(_id) 
+    let taskis=await TASKMODEL.findById(_id) 
     if(!taskis){
         return res.status(404).send("not found any task") 
     }
@@ -51,6 +51,7 @@ router.get("/mytask/:id",async(req,res)=>{
 
 //for update
 router.patch("/mytask/:id",async(req,res)=>{
+
     let updates=Object.keys(req.body);
     let validateskeys=["taskname","description","completed"];
     let updatevalidation=updates.every((updatedata)=>validateskeys.includes(updatedata))
@@ -58,7 +59,12 @@ router.patch("/mytask/:id",async(req,res)=>{
         return res.status(404).send("not matching key")
     }
     try {
-        let updatetask=await TASKMODEL.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true});
+        // let updatetask=await TASKMODEL.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true});
+        let updatetask=await TASKMODEL.findById(req.params.id);
+        updates.forEach((updatedata)=>{
+            updatetask[updatedata]=req.body[updatedata]
+        })
+        await updatetask.save();
       if(!updatetask){
         res.status(404).send("not found any task")
       }

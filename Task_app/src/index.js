@@ -1,7 +1,6 @@
 const express=require("express");
 const taskroute=require("./routes/taskroute.js")
 const userroute=require("./routes/userroute.js")
-const bcrypt=require("bcryptjs")
 
 require("./db.js");
 
@@ -26,6 +25,9 @@ app.use(userroute);
 // }
 
 // hashFun();
+
+
+
 
 
 

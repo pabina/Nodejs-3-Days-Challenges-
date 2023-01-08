@@ -24,6 +24,8 @@ const userSchema=mongoose.Schema({
   password:{
    type:String,
    require:true,
+   unique:true,
+   trim:true,
 
   validate(value){
     if(((value.length)<6) || (value.toLowerCase().includes("password"))){
@@ -37,6 +39,24 @@ const userSchema=mongoose.Schema({
 
 })
 
+
+
+userSchema.statics.findByCredential=async(email,password)=>{
+  const newuser=await UserModel.findOne({email});
+  if(!newuser){
+    throw new Error("unable to login")
+  }
+  const isMatch=await bcrypt.compare(password,newuser.password);
+  if(!isMatch){
+    throw new Error ("unable to login")
+  }
+
+  return newuser;
+
+}
+
+
+
 userSchema.pre("save",async function(next){
   const user=this;
 
@@ -45,6 +65,8 @@ if(user.isModified("password")){
 }
   next();
 })
+
+
 
 
 

@@ -27,7 +27,21 @@ router.post("/user",async(req,res)=>{
        res.status(400).send(error) 
     }
     })
-    
+
+  
+
+  
+
+  //for login to user
+router.post("/user/login",async(req,res)=>{
+  try {
+    const myuser=await UserModel.findByCredential(req.body.email,req.body.password);
+   
+    res.send(myuser)
+  } catch (e) {
+    res.status(404).send("dont")
+  }
+})  
     
 
 
@@ -59,6 +73,9 @@ router.patch("/user/:id",async(req,res)=>{
       res.send(error)
     }
   })
+
+
+  
 
 
 

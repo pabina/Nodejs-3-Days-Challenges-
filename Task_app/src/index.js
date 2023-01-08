@@ -16,16 +16,16 @@ app.use(userroute);
 
 
 
-const hashFun=async()=>{
-    let password="pabina"
-    let hashpassword= await bcrypt.hash(password,8);
-    console.log(hashpassword)
-    let result= await bcrypt.compare(password,hashpassword);
-    console.log(result)
-console.log("this is for hashfun");
-}
+// const hashFun=async()=>{
+//     let password="pabina"
+//     let hashpassword= await bcrypt.hash(password,8);
+//     console.log(hashpassword)
+//     let result= await bcrypt.compare(password,hashpassword);
+//     console.log(result)
+// console.log("this is for hashfun");
+// }
 
-hashFun();
+// hashFun();
 
 
 

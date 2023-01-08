@@ -36,16 +36,21 @@ router.post("/user",async(req,res)=>{
  //updating individual user my id
 router.patch("/user/:id",async(req,res)=>{
     let updates=Object.keys(req.body);
-    let validateUpdates=["name","email","age"];
+    let validateUpdates=["name","email","age","password"];
     let vaidationupdate=updates.every((update)=> validateUpdates.includes(update) )
-    console.log(vaidationupdate)
-    console.log(updates);
+
+    
     
     if(!vaidationupdate){
       return res.send(404).send("invalid key value pair")
     }
     try {
-      let user= await UserModel.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true})
+      let user=await UserModel.findById(req.params.id);
+      updates.forEach((userupdate)=>{
+      user[userupdate]=req.body[userupdate]
+      })
+      await user.save();
+      // let user= await UserModel.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true})
       if(!user){
         return res.status(404).send("not found any user")
       }

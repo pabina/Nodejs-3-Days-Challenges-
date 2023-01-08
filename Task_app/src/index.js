@@ -7,7 +7,12 @@ const app=express();
 app.use(express.json())
 
 
-
+//using router
+const router=express.Router();
+router.get("/router",async(req,res)=>{
+    res.send("this is the router path")
+})
+app.use(router);
 
 
 //for create
@@ -106,6 +111,9 @@ app.delete("/mytask/:id",async(req,res)=>{
        res.send(error) 
     }
 })
+
+
+
 
 
 

@@ -94,6 +94,20 @@ app.patch("/mytask/:id",async(req,res)=>{
 })
 
 
+// for delete
+app.delete("/mytask/:id",async(req,res)=>{
+    try {
+        let task=await TASKMODEL.findByIdAndDelete(req.params.id);
+        if(!task){
+            res.status(404).send("task not found")
+        }
+        res.send(task)
+    } catch (error) {
+       res.send(error) 
+    }
+})
+
+
 
 
 

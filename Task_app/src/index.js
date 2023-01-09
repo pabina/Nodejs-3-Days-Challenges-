@@ -2,6 +2,7 @@ const express=require("express");
 const taskroute=require("./routes/taskroute.js")
 const userroute=require("./routes/userroute.js")
 const jwt=require("jsonwebtoken");
+const auth=require("./middleware/auth.js")
 
 require("./db.js");
 
@@ -13,10 +14,12 @@ const app=express();
 //     next();
 //     })
 
-app.use((req,res,next)=>{
-    res.status(503).send("site is under maintainance please try back later")
-})
+// app.use((req,res,next)=>{
+//     res.status(503).send("site is under maintainance please try back later")
+// })
+app.use(auth);
     
+
 
 
 app.use(express.json())

@@ -6,20 +6,22 @@ const router=express.Router();
 
 
 // for get
-router.get("/user",async(req,res)=>{
-    try {
-       let alluser=await UserModel.find({});
-       res.send(alluser)
-    } catch (error) {
-      res.send(error)
-    }   
+router.get("/user",auth,async(req,res)=>{
+
+  res.send(req.user);
+    // try {
+    //    let alluser=await UserModel.find({});
+    //    res.send(alluser)
+    // } catch (error) {
+    //   res.send(error)
+    // }   
   })
 
 
 
 
  //for post
-router.post("/user",auth,async(req,res)=>{
+router.post("/user",async(req,res)=>{
     const Users=new UserModel(req.body);
     try {
       await Users.save()  

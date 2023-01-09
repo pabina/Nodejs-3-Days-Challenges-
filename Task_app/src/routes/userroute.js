@@ -1,5 +1,6 @@
 const express=require("express");
 let  UserModel=require("../models/user.js");
+const auth=require("../middleware/auth.js")
 const router=express.Router();
 
 
@@ -18,7 +19,7 @@ router.get("/user",async(req,res)=>{
 
 
  //for post
-router.post("/user",async(req,res)=>{
+router.post("/user",auth,async(req,res)=>{
     const Users=new UserModel(req.body);
     try {
       await Users.save()  

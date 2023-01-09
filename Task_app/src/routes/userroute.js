@@ -21,15 +21,18 @@ router.get("/user",auth,async(req,res)=>{
 
 
  //for post
-router.post("/user",async(req,res)=>{
-    const Users=new UserModel(req.body);
-    try {
-      await Users.save()  
-      res.send(Users);
-    } catch (error) {
-       res.status(400).send(error) 
-    }
-    })
+// router.post("/user",async(req,res)=>{
+//     const Users=new UserModel(req.body);
+//     try {
+//       await Users.save()  
+//       res.send(Users);
+//     } catch (error) {
+//        res.status(400).send(error) 
+//     }
+//     })
+
+
+
     
 
   //for registration of user
@@ -68,7 +71,38 @@ router.post("/user/login",async(req,res)=>{
     res.status(404).send("dont")
   }
 })  
+
+
+
+
+
+//for logout user
+  router.post("/user/logout",auth,async(req,res)=>{
+  //  res.send(req.user);
+  try {
+    req.user.tokens = req.user.tokens.filter((token)=>{
+      return token.token != req.token
+   })
+  await req.user.save();
+  res.send("logout to your device");
     
+  } catch (error) {
+    res.send(error)
+  }
+ 
+  })  
+
+
+  //for logout all user
+  router.post("/user/logoutall",auth,async(req,res)=>{
+    try {
+      req.user.tokens=[];
+      await req.user.save();
+      res.send("logout form all devices")
+    } catch (error) {
+      res.send(error)
+    }
+  })
 
 
     
@@ -100,6 +134,8 @@ router.patch("/user/:id",async(req,res)=>{
     }
   })
 
+
+  
 
   
 

@@ -27,6 +27,28 @@ router.post("/user",async(req,res)=>{
        res.status(400).send(error) 
     }
     })
+    
+
+  //for registration of user
+  router.post("/user/register",async(req,res)=>{
+try {
+  const registeruser= await UserModel.findOne({email:req.body.email,name:req.body.name})
+//  res.send(!registeruser);
+  if(!registeruser){
+    const newUser=new UserModel(req.body);
+    const token=await newUser.generateAuthToken();
+    // await newUser.save();
+    return res.status(200).send({newUser,token})
+  }
+  else{
+    res.status(400).send("user already exist")
+  }
+ 
+  
+} catch (error) {
+  res.send(error)
+}
+  })
 
   
 

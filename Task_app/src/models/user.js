@@ -1,6 +1,7 @@
-const mongoose=require("mongoose");
+ const mongoose=require("mongoose");
 const validator=require("validator");
-const bcrypt=require("bcryptjs")
+const bcrypt=require("bcryptjs");
+const jwt=require("jsonwebtoken")
 
 
 
@@ -35,9 +36,25 @@ const userSchema=mongoose.Schema({
   ,
   age:{
  type:Number
+  },
+ tokens:[{
+  token:{
+    type:String,
+    required:true
   }
+ }]
 
 })
+
+userSchema.methods.generateAuthToken = async function(){
+  const user=this
+  console.log(user)
+  const token= jwt.sign({_id:user._id.toString()},"mysecretekey")
+  user.tokens=user.tokens.concat({token})
+  user.save();
+  return token
+
+}
 
 
 
@@ -54,6 +71,9 @@ userSchema.statics.findByCredential=async(email,password)=>{
   return newuser;
 
 }
+
+
+
 
 
 

@@ -36,8 +36,9 @@ router.post("/user",async(req,res)=>{
 router.post("/user/login",async(req,res)=>{
   try {
     const myuser=await UserModel.findByCredential(req.body.email,req.body.password);
-   
-    res.send(myuser)
+    const token=await myuser.generateAuthToken();
+    // console.log(token)
+    res.send({myuser,token})
   } catch (e) {
     res.status(404).send("dont")
   }

@@ -17,16 +17,18 @@ app.use(userroute);
 
 
 //generating authentication token
-const authenticationFun=()=>{
-  const token=  jwt.sign({_id:"hellopabina123456"}, "mysecretekey",{expiresIn:"1 s"});
-  console.log(token)
-  const data=jwt.verify(token,"mysecretekey")
-  console.log(data)
+// const authenticationFun=()=>{
+//   const token=  jwt.sign({_id:"hellopabina123456"}, "mysecretekey",{expiresIn:"1 s"});
+//   console.log(token)
+//   const data=jwt.verify(token,"mysecretekey")
+//   console.log(data)
 
 
-}
+// }
 
-authenticationFun();
+// authenticationFun();
+
+
 
 
 

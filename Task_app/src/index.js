@@ -6,6 +6,15 @@ const jwt=require("jsonwebtoken");
 require("./db.js");
 
 const app=express();
+
+//express middleware
+app.use((req,res,next)=>{
+    console.log(req.method)
+    next();
+    })
+    
+
+
 app.use(express.json())
 app.use(taskroute);
 app.use(userroute);
@@ -15,18 +24,6 @@ app.use(userroute);
 
 
 
-
-//generating authentication token
-// const authenticationFun=()=>{
-//   const token=  jwt.sign({_id:"hellopabina123456"}, "mysecretekey",{expiresIn:"1 s"});
-//   console.log(token)
-//   const data=jwt.verify(token,"mysecretekey")
-//   console.log(data)
-
-
-// }
-
-// authenticationFun();
 
 
 

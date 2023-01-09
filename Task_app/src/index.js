@@ -8,10 +8,14 @@ require("./db.js");
 const app=express();
 
 //express middleware
+// app.use((req,res,next)=>{
+//     console.log(req.method)
+//     next();
+//     })
+
 app.use((req,res,next)=>{
-    console.log(req.method)
-    next();
-    })
+    res.status(503).send("site is under maintainance please try back later")
+})
     
 
 

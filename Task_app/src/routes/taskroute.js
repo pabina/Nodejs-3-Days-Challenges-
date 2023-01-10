@@ -39,6 +39,7 @@ router.post("/task",auth,async(req,res)=>{
 //getting tasks of related user from populate
 //using filtering data for completed or not
 // /task?completed=true 
+//creating pagination by limit and skip
 router.get("/task",auth,async(req,res)=>{
     
 const match = {}
@@ -49,7 +50,11 @@ if(req.query.completed){
         // let user=req.user;
         await req.user.populate({
             path:"tasks",
-           match
+           match,
+           options:{
+            limit:parseInt(req.query.limit),
+            skip:parseInt(req.query.skip)
+           }
         });
        res.send(req.user.tasks);
              

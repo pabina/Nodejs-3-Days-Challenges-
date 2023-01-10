@@ -8,18 +8,6 @@ require("./db.js");
 
 const app=express();
 
-//express middleware
-// app.use((req,res,next)=>{
-//     console.log(req.method)
-//     next();
-//     })
-
-// app.use((req,res,next)=>{
-//     res.status(503).send("site is under maintainance please try back later")
-// })
-// app.use(auth);
-    
-
 
 
 app.use(express.json())
@@ -31,14 +19,22 @@ app.use(userroute);
 
 
 
-
-
-
-
-
-
-
-
 app.listen("8001",()=>{
     console.log("server is working")
 })
+
+
+const me={
+    name:"pabina",
+    location:"ktm"
+}
+
+me.toJSON=function(){
+    console.log(this)
+// return this
+   return {}
+}
+
+console.log(me)
+console.log(JSON.stringify(me));
+

@@ -38,18 +38,20 @@ router.post("/task",auth,async(req,res)=>{
 
 //getting tasks of related user from populate
 //using filtering data for completed or not
+// /task?completed=true 
 router.get("/task",auth,async(req,res)=>{
     
-
+const match = {}
+if(req.query.completed){
+    match.completed=req.query.completed ==="true"
+}
     try {
-        let user=req.user;
-        await user.populate({
+        // let user=req.user;
+        await req.user.populate({
             path:"tasks",
-            match:{
-                completed:true
-            }
+           match
         });
-       res.send(user.tasks);
+       res.send(req.user.tasks);
              
     } catch (error) {
        res.send(error) 

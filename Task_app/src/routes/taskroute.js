@@ -1,22 +1,38 @@
 const express=require('express');
-let TASKMODEL=require("../models/mytask.js")
+let TASKMODEL=require("../models/mytask.js");
+const auth=require("../middleware/auth.js");
+
 
 const router=express.Router();
 
 
-//for create
-router.post("/mytask",async(req,res)=>{
-    const MytaskData=new TASKMODEL(req.body)
 
-try {
-  await MytaskData.save();
-  res.status(201).send(MytaskData)
-} catch (error) {
-    res.status(400).send(error)  
-}
+//for create task
+router.post("/task",auth,async(req,res)=>{
+    try {
+        const task=new TASKMODEL({...req.body,owner:req.user._id})
+         await task.save();
+         res.send(task);
+    } catch (error) {
+       res.send(error) 
+    }
+    
+})
+
+
+//for create
+// router.post("/mytask",async(req,res)=>{
+//     const MytaskData=new TASKMODEL(req.body)
+
+// try {
+//   await MytaskData.save();
+//   res.status(201).send(MytaskData)
+// } catch (error) {
+//     res.status(400).send(error)  
+// }
     
 
-})
+// })
 
 
 //for reading

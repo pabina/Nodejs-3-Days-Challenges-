@@ -133,6 +133,8 @@ router.delete("/task/:id",auth,async(req,res)=>{
     }
 })
 
+//delete the all tasks of user who delete themself
+
 
 
 module.exports=router;

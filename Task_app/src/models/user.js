@@ -1,7 +1,8 @@
  const mongoose=require("mongoose");
 const validator=require("validator");
 const bcrypt=require("bcryptjs");
-const jwt=require("jsonwebtoken")
+const jwt=require("jsonwebtoken");
+const TaskModel=require("./mytask.js");
 
 
 
@@ -104,6 +105,13 @@ userSchema.pre("save",async function(next){
 if(user.isModified("password")){
   user.password=await bcrypt.hash(user.password,8);
 }
+  next();
+})
+
+//delete user tasks when user is remove
+userSchema.pre("remove",async function(next){
+  const user=this
+  await TaskModel.deleteMany({owner:user._id})
   next();
 })
 

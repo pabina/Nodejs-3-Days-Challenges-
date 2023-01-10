@@ -7,8 +7,8 @@ const router=express.Router();
 
 // for get
 router.get("/user",auth,async(req,res)=>{
-
-  res.send(req.user);
+let myuser=req.user
+  res.send({myuser:myuser.getPublicProfile()});
     // try {
     //    let alluser=await UserModel.find({});
     //    res.send(alluser)
@@ -44,7 +44,7 @@ try {
     const newUser=new UserModel(req.body);
     const token=await newUser.generateAuthToken();
     // await newUser.save();
-    return res.status(200).send({newUser,token})
+    return res.status(200).send({newUser:newUser.getPublicProfile(),token})
   }
   else{
     res.status(400).send("user already exist")
@@ -66,7 +66,7 @@ router.post("/user/login",async(req,res)=>{
     const myuser=await UserModel.findByCredential(req.body.email,req.body.password);
     const token=await myuser.generateAuthToken();
     // console.log(token)
-    res.send({myuser,token})
+    res.send({myuser:myuser.getPublicProfile(),token})
   } catch (e) {
     res.status(404).send("dont")
   }

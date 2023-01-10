@@ -20,6 +20,10 @@ router.post("/task",auth,async(req,res)=>{
 })
 
 
+//for getting task of related user
+
+
+
 //for create
 // router.post("/mytask",async(req,res)=>{
 //     const MytaskData=new TASKMODEL(req.body)
@@ -36,15 +40,15 @@ router.post("/task",auth,async(req,res)=>{
 
 
 //for reading
-router.get("/mytask",async(req,res)=>{
-    try {
-     let alltask= await TASKMODEL.find({});
-        res.status(200).send(alltask);
-    } catch (error) {
-        res.status(500).send(error) 
-    }
+// router.get("/mytask",async(req,res)=>{
+//     try {
+//      let alltask= await TASKMODEL.find({});
+//         res.status(200).send(alltask);
+//     } catch (error) {
+//         res.status(500).send(error) 
+//     }
     
-})
+// })
 
 
 

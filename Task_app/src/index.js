@@ -24,17 +24,17 @@ app.listen("8001",()=>{
 })
 
 
-const me={
-    name:"pabina",
-    location:"ktm"
-}
+// const me={
+//     name:"pabina",
+//     location:"ktm"
+// }
 
-me.toJSON=function(){
-    console.log(this)
-// return this
-   return {}
-}
+// me.toJSON=function(){
+//     console.log(this)
+// // return this
+//    return {}
+// }
 
-console.log(me)
-console.log(JSON.stringify(me));
+// console.log(me)
+// console.log(JSON.stringify(me));
 

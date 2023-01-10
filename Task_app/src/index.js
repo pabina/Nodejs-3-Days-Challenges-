@@ -30,33 +30,14 @@ res.send(alltask);
 })
 
 
-//from task you find user
-//introduce to ref and populate mongoose schema
-app.get("/onetask",async(req,res)=>{
-    const onetask=await TASKMODEL.findById("63bd2c6ef12c15b3c5cb4105");
-    // console.log(onetask.owner.toString())
-    await onetask.populate("owner");
-    console.log(onetask.owner);
-    res.send(onetask);
-})
-
-//from user you have to find task
-app.get("/usertask",async(req,res)=>{
-    const user=await UserModel.findById("63bd21400279f8cf16d82456");
-     await user.populate("tasks")
-    console.log(user.tasks)
-    res.send(user);
-})
 
 
 
 
-app.get("/task",auth,async(req,res)=>{
-    const getalltask= await TASKMODEL.find({owner:req.user._id});
-    console.log(getalltask[0].owner)
-    await getalltask[0].populate("owner");
-    res.send(getalltask);
-    })
+
+
+
+
     
 
 

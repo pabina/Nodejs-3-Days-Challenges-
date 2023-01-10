@@ -9,8 +9,8 @@ const router=express.Router();
 
 //for create task
 router.post("/task",auth,async(req,res)=>{
+    const task=new TASKMODEL({...req.body,owner:req.user._id})
     try {
-        const task=new TASKMODEL({...req.body,owner:req.user._id})
          await task.save();
          res.send(task);
     } catch (error) {
@@ -20,44 +20,51 @@ router.post("/task",auth,async(req,res)=>{
 })
 
 
-//for getting task of related user
-
-
-
-//for create
-// router.post("/mytask",async(req,res)=>{
-//     const MytaskData=new TASKMODEL(req.body)
-
-// try {
-//   await MytaskData.save();
-//   res.status(201).send(MytaskData)
-// } catch (error) {
-//     res.status(400).send(error)  
-// }
-    
-
-// })
-
-
-//for reading
-// router.get("/mytask",async(req,res)=>{
+//for getting tasks of related user
+// router.get("/task",auth,async(req,res)=>{
 //     try {
-//      let alltask= await TASKMODEL.find({});
-//         res.status(200).send(alltask);
+//         const alltask= await TASKMODEL.find({owner:req.user._id})
+//         if(!alltask){
+//           return  res.status(400).send("cant find any task")
+//         }
+//         res.send(alltask)
+        
 //     } catch (error) {
-//         res.status(500).send(error) 
+//        res.send(error) 
 //     }
-    
+
 // })
+
+
+//getting tasks of related user from populate
+
+router.get("/task",auth,async(req,res)=>{
+    try {
+        let user=req.user;
+        await user.populate("tasks");
+       res.send(user.tasks);
+             
+    } catch (error) {
+       res.send(error) 
+    }
+
+})
+
+
+
+
+
+
 
 
 
 //for reading single item
-router.get("/mytask/:id",async(req,res)=>{
+//fetching specafic task for authenticted one user
+router.get("/task/:id",auth,async(req,res)=>{
     const _id=req.params.id;
 
     try {
-    let taskis=await TASKMODEL.findById(_id) 
+    let taskis=await TASKMODEL.findOne({_id,"owner":req.user._id}) 
     if(!taskis){
         return res.status(404).send("not found any task") 
     }
@@ -69,31 +76,74 @@ router.get("/mytask/:id",async(req,res)=>{
 })
 
 
-//for update
-router.patch("/mytask/:id",async(req,res)=>{
 
-    let updates=Object.keys(req.body);
-    let validateskeys=["taskname","description","completed"];
-    let updatevalidation=updates.every((updatedata)=>validateskeys.includes(updatedata))
-    if(!updatevalidation){
-        return res.status(404).send("not matching key")
-    }
-    try {
-        // let updatetask=await TASKMODEL.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true});
-        let updatetask=await TASKMODEL.findById(req.params.id);
-        updates.forEach((updatedata)=>{
-            updatetask[updatedata]=req.body[updatedata]
-        })
-        await updatetask.save();
-      if(!updatetask){
-        res.status(404).send("not found any task")
-      }
-      res.send(updatetask)
+//for update
+// router.patch("/task/:id",auth,async(req,res)=>{
+
+//     let updates=Object.keys(req.body);
+//     let validateskeys=["taskname","description","completed"];
+//     let updatevalidation=updates.every((updatedata)=>validateskeys.includes(updatedata))
+//     if(!updatevalidation){
+//         return res.status(404).send("not matching key")
+//     }
+//     try {
+//         // let updatetask=await TASKMODEL.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true});
+//         let updatetask=await TASKMODEL.find({_id:req.params.id,owner:req.user._id});
+
+//         if(!updatetask){
+//            return res.status(404).send("not found any task")
+//           }
+
+//         updates.forEach((updatedata)=>{
+//             updatetask[updatedata]=req.body[updatedata]
+//         })
+
+//         await updatetask.save();
+     
+//       res.send(updatetask)
       
-    } catch (error) {
-      res.send(error) 
-    }
+//     } catch (error) {
+//       res.send(error) 
+//     }
+// })
+
+
+
+
+
+//for update by task id by valid user
+router.patch("/task/:id",auth,async(req,res)=>{
+try {
+ let updates=Object.keys(req.body);
+ let validateskeys=["taskname","description","completed"];
+ let updatevalidation=updates.every((update)=>{
+    return validateskeys.includes(update)
+ })
+
+ if(!updatevalidation){
+    return res.send("invalid key value");
+ }
+
+ 
+let updatetask=await TASKMODEL.findOne({_id:req.params.id,owner:req.user._id});
+if(!updatetask){
+    return res.send("cant find any task")
+}
+updates.forEach((data)=>{
+updatetask[data]=req.body[data]
 })
+ await updatetask.save();
+res.send(updatetask)
+    
+} catch (error) {
+  res.send(error)  
+}
+ 
+
+
+})
+
+
 
 
 // for delete

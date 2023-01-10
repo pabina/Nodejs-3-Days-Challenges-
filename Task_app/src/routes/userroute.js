@@ -6,31 +6,23 @@ const router=express.Router();
 
 
 // for get
-router.get("/user",auth,async(req,res)=>{
+router.get("/user/me",auth,async(req,res)=>{
 let myuser=req.user
-  res.send(myuser);
-    // try {
-    //    let alluser=await UserModel.find({});
-    //    res.send(alluser)
-    // } catch (error) {
-    //   res.send(error)
-    // }   
+  res.send(myuser);  
   })
 
 
 
+  //for getting all user
+  router.get("/users",async(req,res)=>{
 
- //for post
-// router.post("/user",async(req,res)=>{
-//     const Users=new UserModel(req.body);
-//     try {
-//       await Users.save()  
-//       res.send(Users);
-//     } catch (error) {
-//        res.status(400).send(error) 
-//     }
-//     })
-
+    try {
+    let allUser=await UserModel.find({})
+    res.send(allUser) 
+    } catch (error) {
+      res.send(error)
+    }
+  })
 
 
     
@@ -143,18 +135,16 @@ router.patch("/user/:id",async(req,res)=>{
 
 
   //for deleting user
-router.delete("/user/:id",async(req,res)=>{
+router.delete("/user/me",auth,async(req,res)=>{
     try {
-      let deleteUser=await UserModel.findById(req.params.id);
-      if(!deleteUser){
-        return res.status(404).send("dont found any user")
-      }
-      res.send(deleteUser)
+      req.user.remove();
+      res.send(req.user)
       
     } catch (error) {
-      res.send(error)
+      res.send({error:"something went wrong cant remove"})
     }
   })
+  
 
   module.exports=router
      

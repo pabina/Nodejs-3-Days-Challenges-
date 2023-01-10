@@ -37,7 +37,7 @@ const userSchema=mongoose.Schema({
   age:{
  type:Number
   },
-  
+
  tokens:[{
   token:{
     type:String,
@@ -46,6 +46,15 @@ const userSchema=mongoose.Schema({
  }]
 
 })
+
+
+userSchema.virtual("tasks",{
+  ref:"Task",
+  localField:"_id",
+  foreignField:"owner"
+
+})
+
 
 userSchema.methods.toJSON= function(){
   const user=this

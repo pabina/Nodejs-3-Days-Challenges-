@@ -41,6 +41,12 @@ app.get("/onetask",async(req,res)=>{
 })
 
 //from user you have to find task
+app.get("/usertask",async(req,res)=>{
+    const user=await UserModel.findById("63bd21400279f8cf16d82456");
+     await user.populate("tasks")
+    console.log(user.tasks)
+    res.send(user);
+})
 
 
 

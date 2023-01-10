@@ -77,35 +77,7 @@ router.get("/task/:id",auth,async(req,res)=>{
 
 
 
-//for update
-// router.patch("/task/:id",auth,async(req,res)=>{
 
-//     let updates=Object.keys(req.body);
-//     let validateskeys=["taskname","description","completed"];
-//     let updatevalidation=updates.every((updatedata)=>validateskeys.includes(updatedata))
-//     if(!updatevalidation){
-//         return res.status(404).send("not matching key")
-//     }
-//     try {
-//         // let updatetask=await TASKMODEL.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true});
-//         let updatetask=await TASKMODEL.find({_id:req.params.id,owner:req.user._id});
-
-//         if(!updatetask){
-//            return res.status(404).send("not found any task")
-//           }
-
-//         updates.forEach((updatedata)=>{
-//             updatetask[updatedata]=req.body[updatedata]
-//         })
-
-//         await updatetask.save();
-     
-//       res.send(updatetask)
-      
-//     } catch (error) {
-//       res.send(error) 
-//     }
-// })
 
 
 
@@ -124,7 +96,7 @@ try {
     return res.send("invalid key value");
  }
 
- 
+
 let updatetask=await TASKMODEL.findOne({_id:req.params.id,owner:req.user._id});
 if(!updatetask){
     return res.send("cant find any task")
@@ -147,13 +119,15 @@ res.send(updatetask)
 
 
 // for delete
-router.delete("/mytask/:id",async(req,res)=>{
+router.delete("/task/:id",auth,async(req,res)=>{
     try {
-        let task=await TASKMODEL.findByIdAndDelete(req.params.id);
-        if(!task){
-            res.status(404).send("task not found")
+        let removetask=await TASKMODEL.findOneAndDelete({_id:req.params.id,owner:req.user._id});
+        if(!removetask){
+          return  res.status(404).send("unable to remove")
         }
-        res.send(task)
+        
+        await removetask.remove()
+        res.send("remove successfully")
     } catch (error) {
        res.send(error) 
     }

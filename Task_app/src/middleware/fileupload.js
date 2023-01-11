@@ -5,14 +5,12 @@ const upload=multer({
     limits:{
         fileSize:1000000
     },
-    fileFilter(req,file,cb){
-        // if(!file.originalname.endsWith(".pdf"))
-        if(!file.originalname.match(/\.(doc|docx)$/))
-            {
-           return cb(new Error("please upload wprd file"))
-        }
-        cb(undefined,true)
+   fileFilter(req,file,cb){
+    if( !file.originalname.match(/\.(png|jpeg|jpg)$/)){
+      return cb(new Error("you are only able to import png,jpg and jpeg file"))
     }
+    cb(undefined,true)
+   }
 })
 
 

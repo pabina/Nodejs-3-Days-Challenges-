@@ -25,7 +25,7 @@ app.use(userroute);
 // })
 
 app.get("/alltask",async(req,res)=>{
-const alltask=await TASKMODEL.find({});
+const alltask=await TASKMODEL.find({}, "",{limit:2,sort:{"taskname":-1}})
 res.send(alltask);
 })
 

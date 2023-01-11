@@ -40,11 +40,17 @@ router.post("/task",auth,async(req,res)=>{
 //using filtering data for completed or not
 // /task?completed=true 
 //creating pagination by limit and skip
+// /task?sortBy=createdAt:asc
 router.get("/task",auth,async(req,res)=>{
     
 const match = {}
+const sort={}
 if(req.query.completed){
     match.completed=req.query.completed ==="true"
+}
+if(req.query.sortBy){
+   let parts=req.query.sortBy.split(":") ;
+   sort[parts[0]]=parts[1] === "desc"?-1:1
 }
     try {
         // let user=req.user;
@@ -53,7 +59,11 @@ if(req.query.completed){
            match,
            options:{
             limit:parseInt(req.query.limit),
-            skip:parseInt(req.query.skip)
+            skip:parseInt(req.query.skip),
+            // sort:{
+            //     createdAt: -1
+            // }
+            sort
            }
         });
        res.send(req.user.tasks);

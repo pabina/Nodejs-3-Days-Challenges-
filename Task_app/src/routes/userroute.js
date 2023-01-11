@@ -1,6 +1,7 @@
 const express=require("express");
 let  UserModel=require("../models/user.js");
 const auth=require("../middleware/auth.js")
+const upload=require("../middleware/fileupload.js")
 const router=express.Router();
 
 
@@ -128,7 +129,11 @@ router.patch("/user/me",auth,async(req,res)=>{
 
   
 
-  
+ //multer challenge one
+ router.post("/user/upload",upload.single("avatar"),async(req,res)=>{
+  res.send("user avatar upload successfully")
+ })
+
 
 
 

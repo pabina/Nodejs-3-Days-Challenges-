@@ -130,7 +130,7 @@ router.patch("/user/me",auth,async(req,res)=>{
   
 
  //multer challenge one
- router.post("/user/upload",auth,upload.single("avatar"),async(req,res)=>{
+ router.post("/user/profile/upload",auth,upload.single("avatar"),async(req,res)=>{
     req.user.avatar=req.file.buffer;
     await req.user.save();
   res.send("user avatar upload successfully")
@@ -138,6 +138,18 @@ router.patch("/user/me",auth,async(req,res)=>{
   res.status(400).send({error:error.message})
  })
 
+
+ //deleting userprofile 
+ router.delete("/user/profile/delete",auth,async(req,res)=>{
+  try {
+    req.user.avatar=undefined,
+    await req.user.save();
+    res.send("profile remove successfully")
+    
+  } catch (error) {
+    res.send(error)
+  }
+ })
 
 
 

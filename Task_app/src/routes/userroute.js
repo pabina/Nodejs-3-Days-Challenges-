@@ -1,7 +1,8 @@
 const express=require("express");
 let  UserModel=require("../models/user.js");
-const auth=require("../middleware/auth.js")
-const upload=require("../middleware/fileupload.js")
+const auth=require("../middleware/auth.js");
+const upload=require("../middleware/fileupload.js");
+const sharp=require("sharp");
 const router=express.Router();
 
 
@@ -131,7 +132,8 @@ router.patch("/user/me",auth,async(req,res)=>{
 
  //multer challenge one
  router.post("/user/profile/upload",auth,upload.single("avatar"),async(req,res)=>{
-    req.user.avatar=req.file.buffer;
+  const buffer=await sharp(req.file.buffer).resize({width:250,height:250}).png().toBuffer();
+    req.user.avatar=buffer;
     await req.user.save();
   res.send("user avatar upload successfully")
  },(error,req,res,next)=>{
@@ -162,7 +164,7 @@ router.patch("/user/me",auth,async(req,res)=>{
     if(!User | !User.avatar){
     throw new Error();
     }
-    res.set("Content-Type","image/jpg");
+    res.set("Content-Type","image/png");
     res.send(User.avatar)
 
   } catch (error) {

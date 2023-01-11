@@ -38,6 +38,9 @@ const userSchema=mongoose.Schema({
   age:{
  type:Number
   },
+  avatar:{
+   type:Buffer
+  },
 
  tokens:[{
   token:{

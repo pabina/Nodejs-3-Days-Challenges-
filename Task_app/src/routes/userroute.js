@@ -152,6 +152,26 @@ router.patch("/user/me",auth,async(req,res)=>{
  })
 
 
+ //getting profile of user
+ router.get("/users/:id/profile",async(req,res)=>{
+
+  try {
+    
+
+    const User=await UserModel.findById(req.params.id);
+    if(!User | !User.avatar){
+    throw new Error();
+    }
+    res.set("Content-Type","image/jpg");
+    res.send(User.avatar)
+
+  } catch (error) {
+    res.status(404).send()
+  }
+  
+ })
+
+
 
 
   //for deleting user

@@ -132,6 +132,8 @@ router.patch("/user/me",auth,async(req,res)=>{
  //multer challenge one
  router.post("/user/upload",upload.single("avatar"),async(req,res)=>{
   res.send("user avatar upload successfully")
+ },(error,req,res,next)=>{
+  res.status(400).send({error:error.message})
  })
 
 

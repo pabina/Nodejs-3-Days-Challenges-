@@ -1,5 +1,5 @@
 // const {calculateTip} = require(".././math.js")
-const {FahrenheitToCelsius,CelsiusToFahrenheit}=require("../math.js");
+const {FahrenheitToCelsius,CelsiusToFahrenheit,PromiseFunction}=require("../math.js");
 
 
 
@@ -30,10 +30,25 @@ test("celsiustofahrenheit test",()=>{
     expect(FahrenheitTemp).toBe(32)
   })
 
-  //testing asynchronous function
-  test("first async function", (done)=>{
-    setTimeout(() => {
-        expect(2).toBe(1)
-        done();
-    }, 2000);
+
+
+  //testing asynchronous function callback method
+//   test("first async function", (done)=>{
+//     setTimeout(() => {
+//         expect(2).toBe(1)
+//         done();
+//     }, 2000);
+//   })
+
+
+
+  //testing asynchronous function of promises method
+  test("this is promise",(done)=>{
+ PromiseFunction(-1,3).then((result)=>{
+    expect(result).toBe(5)
+    done();
+ })
   })
+
+  
+  

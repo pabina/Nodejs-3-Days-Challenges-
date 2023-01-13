@@ -15,7 +15,25 @@ const FahrenheitToCelsius=(temp)=>{
 const CelsiusToFahrenheit=(temp)=>{
     return (temp * 1.8)+32
 }
-module.exports={FahrenheitToCelsius,CelsiusToFahrenheit}
+
+
+
+//promise function
+const PromiseFunction=(num1,num2)=>{
+   return new Promise((resolve,reject)=>{
+    if(num1<0 ||num2<0){
+      return  reject("cant include value less then zero")
+    }
+    resolve(num1+num2)
+    })
+}
+
+
+
+
+
+
+module.exports={FahrenheitToCelsius,CelsiusToFahrenheit,PromiseFunction}
 
 
 // module.exports={calculateTip};

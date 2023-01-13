@@ -43,11 +43,18 @@ test("celsiustofahrenheit test",()=>{
 
 
   //testing asynchronous function of promises method
-  test("this is promise",(done)=>{
- PromiseFunction(-1,3).then((result)=>{
-    expect(result).toBe(5)
-    done();
- })
+//   test("this is promise",(done)=>{
+//  PromiseFunction(-1,3).then((result)=>{
+//     expect(result).toBe(5)
+//     done();
+//  })
+//   })
+
+  //testin asynchronoush function by async await
+
+test("this is async await",async()=>{
+const sum=await PromiseFunction(22,33);
+expect(sum).toBe(55)
   })
 
   

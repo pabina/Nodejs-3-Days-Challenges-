@@ -1,8 +1,13 @@
-const sgMail = require('@sendgrid/mail')
-const sendGridApiKeys= "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";
+
+const sgMail= require("@sendgrid/mail");
+const dotenv=require("dotenv");
 
 
-sgMail.setApiKey(sendGridApiKeys);
+dotenv.config();
+
+
+
+sgMail.setApiKey(process.env.sendGridApiKeys);
 
 sgMail.send({
     to: "rimalpabina1234@gmail.com",

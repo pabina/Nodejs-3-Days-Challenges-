@@ -11,8 +11,9 @@ const {calculateTip} = require(".././math.js")
  //third test
  test("math test",()=>{
    const totaltips= calculateTip(200,30);
+   expect(totaltips).toBe(60)
 
-   if(totaltips !==60){
-    throw new Error("tips should be 60 rs got"+ totaltips);
-   }
+//    if(totaltips !==60){
+//     throw new Error("tips should be 60 rs got"+ totaltips);
+//    }
  });

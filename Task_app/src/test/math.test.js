@@ -29,3 +29,11 @@ test("celsiustofahrenheit test",()=>{
     const FahrenheitTemp= CelsiusToFahrenheit(0);
     expect(FahrenheitTemp).toBe(32)
   })
+
+  //testing asynchronous function
+  test("first async function", (done)=>{
+    setTimeout(() => {
+        expect(2).toBe(1)
+        done();
+    }, 2000);
+  })
